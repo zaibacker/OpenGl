@@ -1,0 +1,93 @@
+
+#options de compilation
+CFLAGS = -O2 -L/usr/X11R6/include -DLINUX -g
+#CFLAGS = -O2 -I. -g -I/usr/local/mesalib/include
+#librairies pour l'édition des liens
+LIBS = -L/usr/X11R6/lib -lGL -lGLU -lglut -lm
+
+
+
+
+all:prj
+
+prj:wrapperopengl.o world.o terrain.o faune.o avatar.o proie.o predateur.o camera.o reseau.o inforeseau.o serveur.o client.o restartOp.o color.o light.o main.o
+	g++ -o prj main.o wrapperopengl.o world.o terrain.o faune.o avatar.o proie.o predateur.o camera.o reseau.o inforeseau.o serveur.o client.o restartOp.o color.o light.o $(LIBS)
+   
+main.o: main.cpp
+	g++ -c main.cpp -I.
+	
+wrapperopengl.o:wrapperopengl.cpp wrapperopengl.h
+	g++ -c wrapperopengl.cpp -I. 
+
+camera.o:camera.cpp camera.h
+	g++ -c camera.cpp -I. 
+
+world.o:world.cpp world.h terrain.o faune.o
+	g++ -c world.cpp -I. 
+
+terrain.o:terrain.cpp terrain.h
+	g++ -c terrain.cpp -I. 	
+
+faune.o:faune.cpp faune.h
+	g++ -c faune.cpp -I. 
+	
+avatar.o:avatar.cpp avatar.h
+	g++ -c avatar.cpp -I. 
+
+proie.o:proie.cpp proie.h
+	g++ -c proie.cpp -I. 
+
+predateur.o:predateur.cpp predateur.h
+	g++ -c predateur.cpp -I. 
+	
+reseau.o:reseau.cpp reseau.h
+	g++ -c reseau.cpp -I.
+
+inforeseau.o:inforeseau.cpp inforeseau.h
+	g++ -c inforeseau.cpp -I.
+
+serveur.o:serveur.cpp serveur.h
+	g++ -c serveur.cpp -I.
+	
+client.o:client.cpp client.h
+	g++ -c client.cpp -I.
+	
+restartOp.o:restartOp.c restartOp.h
+	g++ -c restartOp.c -I.
+
+color.o:color.cpp color.h
+	g++ -c color.cpp -I.
+	
+light.o:light.cpp light.h
+	g++ -c light.cpp -I.
+
+
+clean:
+	rm -f *.o *~ ./prj
+
+
+
+help:
+	@echo
+	@echo  "Makefile options":
+	@echo  "  help: Imprime ce message"
+	@echo  "  all: ReCreation de $(PROG) et de tous les .o"
+	@echo  "  clean: Efface tous les fichiers .o et ~*"
+	@echo  "  c: montre les fichiers .c"
+	@echo  "  cpp: montre les fichiers .cpp"
+	@echo  "  h: montre les fichiers .h"
+	@echo  "  o: montre les fichiers .o"
+	@echo
+
+o:
+	ls *.o
+
+h:
+	ls *.o
+	
+cpp:
+	ls *.o
+	
+c:
+	ls *.o
+	
